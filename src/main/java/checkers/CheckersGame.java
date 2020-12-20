@@ -12,19 +12,20 @@ public class CheckersGame {
 
     private String color;
     private String token;
+    private final double  time;
     private volatile boolean isFinished;
 
-    public CheckersGame(String name, minimaxAI minimaxAi) {
+    public CheckersGame(String name, minimaxAI minimaxAi,double time) {
         this.minimaxAi = minimaxAi;
         this.name = name;
+        this.time = time;
     }
 
     public void runGame(RestTemplate restT) throws InterruptedException{
 
         UriComponentsBuilder ur = UriComponentsBuilder.fromUriString(serverUrl + "/game").queryParam("team_name", name);
 
-        ResponseEntity<String> responseFromGame
-                = restT.postForEntity(ur.build().toUri(), null, String.class);
+        ResponseEntity<String> responseFromGame = restT.postForEntity(ur.build().toUri(), null, String.class);
 
         String temp = responseFromGame.getBody();
 
@@ -43,6 +44,11 @@ public class CheckersGame {
 
         minimaxAi.setColor(color);
 
+        int i = 0;
+        if(time < 0){
+            i++;
+            System.out.println(i);
+        }
         while (!isFinished) {
 
             ResponseEntity<Response> getResponseFromGame
@@ -51,6 +57,7 @@ public class CheckersGame {
             System.out.println(getResponseFromGame.getBody());
 
             Response response = getResponseFromGame.getBody();
+
 
             if(isFinished){
                 break;

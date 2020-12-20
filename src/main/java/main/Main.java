@@ -1,18 +1,18 @@
 package main;
 
-import checkers.minimaxAI;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.concurrent.CompletableFuture;
 import checkers.CheckersGame;
+import checkers.minimaxAI;
+import checkers.Config;
+
 @SpringBootApplication
 public class Main {
-
-    //  static boolean finished=false;
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
     }
@@ -25,7 +25,7 @@ public class Main {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
-            CheckersGame bot1 = new CheckersGame("Люся", new minimaxAI());
+            CheckersGame bot1 = new CheckersGame("Люся", new minimaxAI(), Config.TIME);
             //CheckersGame bot2 = new CheckersGame("Bot", new minimaxAI());
 
             CompletableFuture.runAsync(() -> {
