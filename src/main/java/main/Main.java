@@ -26,7 +26,7 @@ public class Main {
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
             CheckersGame bot1 = new CheckersGame("Люся", new minimaxAI(), Config.TIME);
-            //CheckersGame bot2 = new CheckersGame("Bot", new minimaxAI());
+           // CheckersGame bot2 = new CheckersGame("Bot", new minimaxAI(),Config.TIME);
 
             CompletableFuture.runAsync(() -> {
                 try {
